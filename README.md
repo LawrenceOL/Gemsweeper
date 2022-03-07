@@ -1,4 +1,4 @@
-# Minesweeper Game
+# Gemsweeper Game
 
 ## Date: 3/7/22
 
@@ -10,7 +10,8 @@
 
 ### ***Description***
 
-### A new interpretation of the classic game Minesweeper
+### A mining themed twist on the class game Minesweeper
+#### Collect all the gems and mark all the lava flows to win
 
 ---
 
@@ -19,30 +20,28 @@
 - HTML
 - CSS
 - JavaScript
-- Git
-- Github
 
-### ***Concepttual Screenshot***
+### ***Conceptual Screenshots***
 
-#### The Minesweeper game will look something like this:
+#### Gemsweeper is a mash-up of classic Minesweeper style gameplay:
 
 ![Image](https://i.imgur.com/7tD0yuC.jpeg)
 
-#### Perhaps with some styling it will look similar to this:
+#### ...mixed with the thrill of searching for rare gems near lava, such as in mining games like this:
 
-![Image](https://i.imgur.com/0eaBYk7.png)
+![Image](https://i.ytimg.com/vi/TGyOqZAsKeo/maxresdefault.jpg)
 
 ### ***Future Updates***
 
-- [ ] Get Approval from instructors
-- [ ] Assembly HTML
+- [x] Get Approval from instructors
+- [ ] Assemble HTML
 - [ ] Code up some JavaScript
 - [ ] Add style with CSS
 - [ ] Deploy to Surge 
 
 
 ### ***Credits***
-#### Inspired by Jerimac Ratliff's *Cube* game. More info [here](www.bing.com)
-#### Hats off to Microsoft for including Microsoft Minesweeper in Windows 3.1 in 1992
+#### Inspired by Jerimac Ratliff's *Cube* game and the Windows 3.1 classic Microsoft Minesweeper
+#### Elements of gameplay inspired by Mojang's [Minecraft](https://www.minecraft.net/) 
 #### Thanks to the members of the 2-22 GA SEI Cohort. Glad to be sharing the GA immersive experience with you
 
