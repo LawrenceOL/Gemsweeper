@@ -1,4 +1,5 @@
 gameSquares = document.querySelectorAll('.game-square')
+resetButton = document.querySelector('button')
 squareCount = 81
 totalHidden = 10
 seededHidden = 0
@@ -11,6 +12,8 @@ gameSquares.forEach((gameSquare) => {
     gameSquare.style.background = 'green'
   })
 })
+
+resetButton.addEventListener('click', reset)
 
 //functions
 
@@ -33,4 +36,15 @@ function seedHidden() {
       }
     })
   }
+}
+
+function reset() {
+  gameSquares.forEach((gameSquare) => {
+    if (
+      gameSquare.style.background === 'red' ||
+      gameSquare.style.background === 'green'
+    ) {
+      gameSquare.style.background = 'gray'
+    }
+  })
 }
