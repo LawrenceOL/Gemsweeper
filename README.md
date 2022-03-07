@@ -20,7 +20,7 @@
 - CSS
 - JavaScript
 - Git
-  - Github
+- Github
 
 ### ***Concepttual Screenshot***
 
@@ -42,7 +42,7 @@
 
 
 ### ***Credits***
-#### Inspired by Jerimac Ratliff's *Cube* game. more info [here](www.bing.com)
-#### Microsoft for including Microsoft Minesweeper in Windows 3.1 in 1992
-#### Thanks to all the members of the 2-22 GA SEI Cohort. Glad to be sharing the GA immersive experience with all of you
+#### Inspired by Jerimac Ratliff's *Cube* game. More info [here](www.bing.com)
+#### Hats off to Microsoft for including Microsoft Minesweeper in Windows 3.1 in 1992
+#### Thanks to the members of the 2-22 GA SEI Cohort. Glad to be sharing the GA immersive experience with you
 
