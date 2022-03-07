@@ -1,6 +1,29 @@
 body {
   background: lightblue;
 }
+
+header {
+  text-align: center;
+  margin: 60px 0 0 0;
+  font-size: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-evenly;  
+  align-items: center;  
+  flex-direction: row;
+  margin: 100px;  
+}
+
+.left {
+  display: flex;
+}
+
+.right {
+  display: flex;
+}
+
 .game-container {
   display: grid;  
   grid-auto-flow: row;
