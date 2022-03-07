@@ -1,4 +1,31 @@
 body {
   background: lightblue;
 }
+.game-container {
+  display: grid;  
+  grid-auto-flow: row;
+  grid-template-columns: 20px 20px 20px 20px 20px 20px 20px 20px 20px;  
+}
+
+.game-square {
+  width: 20px;
+  height: 20px;
+  background-color: gray;
+  border-style: solid;
+}
+
+nav {
+  background-color: orange; 
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+}
+
+.nav-item {
+  display: flex;
+  margin-right: 5px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
 
