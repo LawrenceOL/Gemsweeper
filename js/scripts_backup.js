@@ -1,3 +1,16 @@
+class GameSquareObject {
+  constructor(squareName, coordinates, neighbors) {
+    this.squareName = squareName
+    this.coordinates = coordinates
+    this.neighbors = neighbors
+    this.isLava = false
+    this.isGem = false
+    this.isFlagged = false
+    this.isFlipped = false
+    this.selector = document.querySelector(`${boxName}`)
+  }
+}
+
 let gameSquares = document.querySelectorAll('.game-square')
 let resetButton = document.querySelector('button')
 
@@ -18,7 +31,7 @@ const idToCoords = {}
 
 generateArray()
 addGreenClickAndBoxID()
-// seedHidden()
+seedHidden()
 
 // let seededSquares = document.querySelectorAll('.seeded-square')
 // seedGems()
@@ -34,26 +47,24 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
 }
 
-//fix this function?
-
 function seedHidden() {
   while (seededHiddenLava < totalHiddenObjects) {
-    gameSquares.forEach((seededSquare) => {
-      if (
-        seededHiddenLava < totalHiddenObjects &&
-        !(seededSquare.style.background = 'red')
-      ) {
+    for (const boxID in idToCoords) {
+      if (seededHiddenLava < totalHiddenObjects && !('lava' in boxID)) {
         if (getRandomIntInclusive(1, 10) === 5) {
-          seededSquare.style.background = 'red'
+          boxID['lava'] = 'true'
+          document.querySelector(`${boxID}`).style.background = 'red'
 
           // !!!!!!!!!!! are there checks for .seeded-square?
           // id.classList.add('seeded-square')
           seededHiddenLava += 1
         }
       }
-    })
+    }
   }
 }
+
+//seedGems() out out of commission until seededSquares is redone
 
 // function seedGems() {
 //   while (seededGems < totalGems) {
@@ -84,16 +95,18 @@ function generateArray() {
   }
 }
 
+function constructArrayOfSquareObjects() {
+  for (let i = 0; i < squareCount; i++) {
+    let newname = 
+    const gamesquare = new GameSquareObject(`${gamesquare[i]}`, coordinateArrayOfSquares[i], [] )
+  }
+}
+
 function addGreenClickAndBoxID() {
   gameSquares.forEach((gameSquare, index) => {
     let id = `box${index}`
-    //adds box# tag to square
     gameSquare.setAttribute('id', id)
-
-    //adds square to array of square objects key=square# value= coordinates
     idToCoords[id] = coordinateArrayOfSquares[index]
-
-    //add event listener to turn box green. can be modified to change to flipped
     gameSquare.addEventListener('click', () => {
       gameSquare.style.background = 'green'
       alert(`My coordinates are ${coordinateArrayOfSquares[index]}`)
