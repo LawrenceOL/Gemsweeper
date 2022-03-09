@@ -5,6 +5,7 @@ class Box {
     this.neighbors = neighbors
     this.isLava = false
     this.isGem = false
+    this.isHiddenObject = false
     this.isFlagged = false
     this.isFlipped = false
     this.selector = document.querySelector(`${boxName}`)

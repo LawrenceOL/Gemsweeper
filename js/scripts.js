@@ -19,10 +19,10 @@ const squares = {}
 
 generateCoordinatesArray()
 generateSquareObjects()
-addBoxClass()
+addSquareID()
 seedHidden()
 seedGems()
-flipListener()
+addFlipListener()
 
 resetButton.addEventListener('click', reset)
 
@@ -46,6 +46,7 @@ function seedHidden() {
       ) {
         if (getRandomIntInclusive(1, 10) === 5) {
           squares[coordinateArrayOfSquares[i]].isLava = true
+          squares[coordinateArrayOfSquares[i]].isHiddenObject = true
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
           ).style.background = 'red'
@@ -63,11 +64,11 @@ function seedGems() {
     for (let i = 0; i < 81; i++) {
       if (
         seededGems < totalGems &&
-        (!squares[coordinateArrayOfSquares[i]].isGem ||
-          !squares[coordinateArrayOfSquares[i]].isGem)
+        !squares[coordinateArrayOfSquares[i]].isHiddenObject
       ) {
         if (getRandomIntInclusive(1, 10) === 5) {
           squares[coordinateArrayOfSquares[i]].isGem = true
+          squares[coordinateArrayOfSquares[i]].isHiddenObject = true
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
           ).style.background = 'lightblue'
@@ -127,23 +128,24 @@ function generateCoordinatesArray() {
 
 function generateSquareObjects() {
   for (let i = 0; i < squareCount; i++) {
-    let boxName = 'box' + i
+    let squareName = 'square' + i
     squares[coordinateArrayOfSquares[i]] = {
-      name: boxName,
+      name: squareName,
       coordinates: coordinateArrayOfSquares[i],
       neighbors: 'tbd',
       isLava: false,
       isGem: false,
+      isHiddenObject: false,
       isFlagged: false,
       isFlipped: false,
-      selector: `#${boxName}`
+      selector: `#${squareName}`
     }
   }
 }
 
-function addBoxClass() {
+function addSquareID() {
   gameSquares.forEach((gameSquare, index) => {
-    let id = `box${index}`
+    let id = `square${index}`
     gameSquare.id = id
     // gameSquare.classList.add(id)
 
@@ -161,7 +163,7 @@ function addBoxClass() {
   })
 }
 
-function flipListener() {
+function addFlipListener() {
   gameSquares.forEach((gameSquare, i) => {
     gameSquare.addEventListener('click', () => {
       if (!squares[coordinateArrayOfSquares[i]].isFlipped) {
@@ -171,6 +173,11 @@ function flipListener() {
     })
   })
 }
+
+// function incrementValuesAroundHidden {
+// for (x = 0, x < width, x++)
+//   if (!coordinateArrayOfSquares[i]].isLava && coordinateArrayOfSquares[i]].is
+// }
 
 function reset() {
   window.location.reload()
