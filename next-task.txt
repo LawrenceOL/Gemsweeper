@@ -1,0 +1,37 @@
+For each square in the grid
+1) check use it’s box id # to get coordinates
+2) generate a list of the 9 possible coordinates around it
+3) use coordinates to get object ids for possible surrounding coordinate that exist
+4) iterate through existing objects. Increment number in box for each red or lightblue
+5) set innerText of box to number
+
+
+
+loop through to increment number boxes
+
+
+
+//
+find all boxes around lava and increment then
+
+
+combine is gem or lava into one thing
+
+
+coodinates: name
+
+
+precalculating the values 
+
+plus signs recurse check
+
+base case: when you can't explore x +1 x -1 y+1 y-1
+
+front load neighbors:
+
+//next
+write a function that given a box returns a list of neighbors
+
+What is the input what is the output
+
+get the x/y in the keystone

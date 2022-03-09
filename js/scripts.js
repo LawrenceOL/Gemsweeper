@@ -19,11 +19,10 @@ const squares = {}
 
 generateCoordinatesArray()
 generateSquareObjects()
-addGreenClickAndBoxID()
-
+addBoxClass()
 seedHidden()
-
 seedGems()
+flipListener()
 
 resetButton.addEventListener('click', reset)
 
@@ -41,10 +40,17 @@ function getRandomIntInclusive(min, max) {
 function seedHidden() {
   while (seededHiddenLava < totalLavas) {
     for (let i = 0; i < 81; i++) {
-      if (seededHiddenLava < totalLavas && !squares['box' + i].isLava) {
+      if (
+        seededHiddenLava < totalLavas &&
+        !squares[coordinateArrayOfSquares[i]].isLava
+      ) {
         if (getRandomIntInclusive(1, 10) === 5) {
-          squares['box' + i].isLava = true
-          eval(squares['box' + i].selector + ".style.background = 'red'")
+          squares[coordinateArrayOfSquares[i]].isLava = true
+          document.querySelector(
+            squares[coordinateArrayOfSquares[i]].selector
+          ).style.background = 'red'
+
+          // eval(squares['box' + i].selector + ".style.background = 'red'")
           seededHiddenLava += 1
         }
       }
@@ -57,11 +63,16 @@ function seedGems() {
     for (let i = 0; i < 81; i++) {
       if (
         seededGems < totalGems &&
-        (!squares['box' + i].isGem || !squares['box' + i].isGem)
+        (!squares[coordinateArrayOfSquares[i]].isGem ||
+          !squares[coordinateArrayOfSquares[i]].isGem)
       ) {
         if (getRandomIntInclusive(1, 10) === 5) {
-          squares['box' + i].isGem = true
-          eval(squares['box' + i].selector + ".style.background = 'lightblue'")
+          squares[coordinateArrayOfSquares[i]].isGem = true
+          document.querySelector(
+            squares[coordinateArrayOfSquares[i]].selector
+          ).style.background = 'lightblue'
+
+          // eval(squares['box' + i].selector + ".style.background = 'lightblue'")
           seededGems += 1
         }
       }
@@ -98,10 +109,26 @@ function generateCoordinatesArray() {
   }
 }
 
+// function generateSquareObjects() {
+//   for (let i = 0; i < squareCount; i++) {
+//     let boxName = 'box' + i
+//     squares['box' + i] = {
+//       name: boxName,
+//       coordinates: coordinateArrayOfSquares[i],
+//       neighbors: 'tbd',
+//       isLava: false,
+//       isGem: false,
+//       isFlagged: false,
+//       isFlipped: false,
+//       selector: `#${boxName}`
+//     }
+//   }
+// }
+
 function generateSquareObjects() {
   for (let i = 0; i < squareCount; i++) {
     let boxName = 'box' + i
-    squares['box' + i] = {
+    squares[coordinateArrayOfSquares[i]] = {
       name: boxName,
       coordinates: coordinateArrayOfSquares[i],
       neighbors: 'tbd',
@@ -109,26 +136,38 @@ function generateSquareObjects() {
       isGem: false,
       isFlagged: false,
       isFlipped: false,
-      selector: `document.querySelector('.${boxName}')`
+      selector: `#${boxName}`
     }
   }
 }
 
-function addGreenClickAndBoxID() {
+function addBoxClass() {
   gameSquares.forEach((gameSquare, index) => {
     let id = `box${index}`
-    gameSquare.classList.add(id)
+    gameSquare.id = id
+    // gameSquare.classList.add(id)
 
     //adds box# tag to square
     // gameSquare.setAttribute('id', id)
 
-    let boxHelper = 'box' + index
+    // let boxHelper = 'box' + index
     //adds square to array of square objects key=square# value= coordinates
     // squares.boxHelper['coordinates'] = coordinateArrayOfSquares[index]
     //add event listener to turn box green. can be modified to change to flipped
     gameSquare.addEventListener('click', () => {
       gameSquare.style.background = 'green'
       // alert(`My coordinates are ${coordinateArrayOfSquares[index]}`)
+    })
+  })
+}
+
+function flipListener() {
+  gameSquares.forEach((gameSquare, i) => {
+    gameSquare.addEventListener('click', () => {
+      if (!squares[coordinateArrayOfSquares[i]].isFlipped) {
+        gameSquare.style.background = 'green'
+        squares[coordinateArrayOfSquares[i]].isFlipped = true
+      }
     })
   })
 }
