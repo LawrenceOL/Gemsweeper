@@ -1,6 +1,6 @@
-class Box {
-  constructor(boxName, coordinates, neighbors) {
-    this.boxName = boxName
+class Square {
+  constructor(squareName, coordinates, neighbors) {
+    this.squareName = squareName
     this.coordinates = coordinates
     this.neighbors = neighbors
     this.isLava = false
@@ -9,6 +9,7 @@ class Box {
     this.isFlagged = false
     this.isFlipped = false
     this.selector = document.querySelector(`${boxName}`)
+    this.squareValue = 0
   }
 }
 
