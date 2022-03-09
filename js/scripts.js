@@ -129,7 +129,7 @@ function incrementValuesAroundHidden() {
     // left adjacent
     if (
       squares[coordinateArrayOfSquares[i - 1]] &&
-      squares[coordinateArrayOfSquares[i]].coordinates[1] !== 0 &&
+      squares[coordinateArrayOfSquares[i]].coordinates[0] !== 0 &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
       !squares[coordinateArrayOfSquares[i - 1]].isHiddenObject
     ) {
@@ -139,10 +139,10 @@ function incrementValuesAroundHidden() {
       ).innerText = `${squares[coordinateArrayOfSquares[i - 1]].squareValue}`
     }
 
-    //right adjacent
+    // //     //right adjacent
     if (
       squares[coordinateArrayOfSquares[i + 1]] &&
-      squares[coordinateArrayOfSquares[i]].coordinates[1] !== 8 &&
+      squares[coordinateArrayOfSquares[i]].coordinates[0] !== 8 &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
       !squares[coordinateArrayOfSquares[i + 1]].isHiddenObject
     ) {
@@ -151,99 +151,101 @@ function incrementValuesAroundHidden() {
         squares[coordinateArrayOfSquares[i + 1]].selector
       ).innerText = `${squares[coordinateArrayOfSquares[i + 1]].squareValue}`
     }
+
+    // //Above - 1 aka 10 before
+    if (
+      squares[coordinateArrayOfSquares[i - gridWidth - 1]] &&
+      squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+      !squares[coordinateArrayOfSquares[i - gridWidth - 1]].isHiddenObject &&
+      squares[coordinateArrayOfSquares[i]].coordinates[0] !== 0
+    ) {
+      squares[coordinateArrayOfSquares[i - gridWidth - 1]].squareValue += 1
+      document.querySelector(
+        squares[coordinateArrayOfSquares[i - gridWidth - 1]].selector
+      ).innerText = `${
+        squares[coordinateArrayOfSquares[i - gridWidth - 1]].squareValue
+      }`
+    }
+
+    // //Above aka 9 before
+    if (
+      squares[coordinateArrayOfSquares[i - gridWidth]] &&
+      squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+      !squares[coordinateArrayOfSquares[i - gridWidth]].isHiddenObject
+    ) {
+      squares[coordinateArrayOfSquares[i - gridWidth]].squareValue += 1
+      document.querySelector(
+        squares[coordinateArrayOfSquares[i - gridWidth]].selector
+      ).innerText = `${
+        squares[coordinateArrayOfSquares[i - gridWidth]].squareValue
+      }`
+    }
+
+    // //Above + 1 aka 8 before
+    if (
+      squares[coordinateArrayOfSquares[i - gridWidth + 1]] &&
+      squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+      !squares[coordinateArrayOfSquares[i - gridWidth + 1]].isHiddenObject &&
+      squares[coordinateArrayOfSquares[i]].coordinates[0] !== 8
+    ) {
+      squares[coordinateArrayOfSquares[i - gridWidth + 1]].squareValue += 1
+      document.querySelector(
+        squares[coordinateArrayOfSquares[i - gridWidth + 1]].selector
+      ).innerText = `${
+        squares[coordinateArrayOfSquares[i - gridWidth + 1]].squareValue
+      }`
+    }
+
+    // //below - 1 aka 8 after
+    if (
+      squares[coordinateArrayOfSquares[i + gridWidth - 1]] &&
+      squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+      !squares[coordinateArrayOfSquares[i + gridWidth - 1]].isHiddenObject &&
+      squares[coordinateArrayOfSquares[i]].coordinates[0] !== 0
+    ) {
+      squares[coordinateArrayOfSquares[i + gridWidth - 1]].squareValue += 1
+      document.querySelector(
+        squares[coordinateArrayOfSquares[i + gridWidth - 1]].selector
+      ).innerText = `${
+        squares[coordinateArrayOfSquares[i + gridWidth - 1]].squareValue
+      }`
+    }
+
+    // //below aka 9 after
+    if (
+      squares[coordinateArrayOfSquares[i + gridWidth]] &&
+      squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+      !squares[coordinateArrayOfSquares[i + gridWidth]].isHiddenObject
+    ) {
+      squares[coordinateArrayOfSquares[i + gridWidth]].squareValue += 1
+      document.querySelector(
+        squares[coordinateArrayOfSquares[i + gridWidth]].selector
+      ).innerText = `${
+        squares[coordinateArrayOfSquares[i + gridWidth]].squareValue
+      }`
+    }
+
+    // //below + 1 aka 10 after
+    if (
+      squares[coordinateArrayOfSquares[i + gridWidth + 1]] &&
+      squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+      !squares[coordinateArrayOfSquares[i + gridWidth + 1]].isHiddenObject &&
+      squares[coordinateArrayOfSquares[i]].coordinates[0] !== 8
+    ) {
+      squares[coordinateArrayOfSquares[i + gridWidth + 1]].squareValue += 1
+      document.querySelector(
+        squares[coordinateArrayOfSquares[i + gridWidth + 1]].selector
+      ).innerText = `${
+        squares[coordinateArrayOfSquares[i + gridWidth + 1]].squareValue
+      }`
+    }
   }
 }
-
-// -- Above work
-
-// //10 before
-// else if (
-//   squares[coordinateArrayOfSquares[i - gridWidth - 1]] &&
-//   squares[coordinateArrayOfSquares[i]].isHiddenObject &&
-//   !squares[coordinateArrayOfSquares[i - gridWidth - 1]].isHiddenObject
-// ) {
-//   squares[coordinateArrayOfSquares[i - gridWidth - 1]].squareValue += 1
-//   document.querySelector(
-//     squares[coordinateArrayOfSquares[i - gridWidth - 1]].selector
-//   ).innerText = `${
-//     squares[coordinateArrayOfSquares[i - gridWidth - 1]].squareValue
-//   }`
-// }
-
-// //9 before
-// else if (
-//   squares[coordinateArrayOfSquares[i - gridWidth]] &&
-//   squares[coordinateArrayOfSquares[i]].isHiddenObject &&
-//   !squares[coordinateArrayOfSquares[i - gridWidth]].isHiddenObject
-// ) {
-//   squares[coordinateArrayOfSquares[i - gridWidth]].squareValue += 1
-//   document.querySelector(
-//     squares[coordinateArrayOfSquares[i - gridWidth]].selector
-//   ).innerText = `${
-//     squares[coordinateArrayOfSquares[i - gridWidth]].squareValue
-//   }`
-// }
-
-// //8 before
-// else if (
-//   squares[coordinateArrayOfSquares[i - gridWidth + 1]] &&
-//   squares[coordinateArrayOfSquares[i]].isHiddenObject &&
-//   !squares[coordinateArrayOfSquares[i - gridWidth + 1]].isHiddenObject
-// ) {
-//   squares[coordinateArrayOfSquares[i - gridWidth + 1]].squareValue += 1
-//   document.querySelector(
-//     squares[coordinateArrayOfSquares[i - gridWidth + 1]].selector
-//   ).innerText = `${
-//     squares[coordinateArrayOfSquares[i - gridWidth + 1]].squareValue
-//   }`
-// }
-
-// //8 after
-// else if (
-//   squares[coordinateArrayOfSquares[i + gridWidth - 1]] &&
-//   squares[coordinateArrayOfSquares[i]].isHiddenObject &&
-//   !squares[coordinateArrayOfSquares[i + gridWidth - 1]].isHiddenObject
-// ) {
-//   squares[coordinateArrayOfSquares[i + gridWidth - 1]].squareValue += 1
-//   document.querySelector(
-//     squares[coordinateArrayOfSquares[i + gridWidth - 1]].selector
-//   ).innerText = `${
-//     squares[coordinateArrayOfSquares[i + gridWidth - 1]].squareValue
-//   }`
-// }
-
-// //9 after
-// else if (
-//   squares[coordinateArrayOfSquares[i + gridWidth]] &&
-//   squares[coordinateArrayOfSquares[i]].isHiddenObject &&
-//   !squares[coordinateArrayOfSquares[i + gridWidth]].isHiddenObject
-// ) {
-//   squares[coordinateArrayOfSquares[i + gridWidth]].squareValue += 1
-//   document.querySelector(
-//     squares[coordinateArrayOfSquares[i + gridWidth]].selector
-//   ).innerText = `${
-//     squares[coordinateArrayOfSquares[i + gridWidth]].squareValue
-//   }`
-// }
-
-// //10 after
-// else if (
-//   squares[coordinateArrayOfSquares[i + gridWidth + 1]] &&
-//   squares[coordinateArrayOfSquares[i]].isHiddenObject &&
-//   !squares[coordinateArrayOfSquares[i + gridWidth + 1]].isHiddenObject
-// ) {
-//   squares[coordinateArrayOfSquares[i + gridWidth + 1]].squareValue += 1
-//   document.querySelector(
-//     squares[coordinateArrayOfSquares[i + gridWidth + 1]].selector
-//   ).innerText = `${
-//     squares[coordinateArrayOfSquares[i + gridWidth + 1]].squareValue
-//   }`
-// }
 
 //   !squares[coordinateArrayOfSquares[i - 1]].isHiddenObject
 // ) {
 //   squares[coordinateArrayOfSquares[i - 1]].squareValue += 1
-// }
+// }}}
 
 //then x and y loops -1 to 1 comparing against coordinates
 
