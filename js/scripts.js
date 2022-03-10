@@ -2,7 +2,8 @@ let gameSquares = document.querySelectorAll('.game-square')
 let resetButton = document.querySelector('button')
 
 let lavaDisplay = document.querySelector('#lava-display')
-let gemDisplay = document.querySelector('#gem-display')
+let bonusDisplay = document.querySelector('#bonus-display')
+let endGameBanner = document.querySelector('#end-game-banner')
 
 let gridWidth = 9
 let gridHeight = 9
@@ -47,6 +48,30 @@ function cheatMode() {
   }
 }
 
+function countFoundObjects() {
+  let lavaCount = 0
+  let gemCount = 0
+  foundObjectsCount = ['lava', 'gem bonus']
+  for (square in squares) {
+    if (squares[square].isFlagged === true) {
+      if (squares[square].isLava === true) {
+        lavaCount += 1
+      }
+      if (squares[square].isGem === true) {
+        gemCount += 1
+      }
+    }
+  }
+  foundObjectsCount[0] = gemCount + lavaCount
+  foundObjectsCount[1] = gemCount * 100
+  return foundObjectsCount
+}
+
+function updateFoundObjectsDisplay(foundObjectsCount) {
+  lavaDisplay.innerText = `Hidden Objects found: ${foundObjectsCount[0]}`
+  bonusDisplay.innerText = `Bonus Points Awarded: ${foundObjectsCount[1]}`
+}
+
 function checkWin() {
   let winCheckCount = 0
   let flaggedHiddens = 0
@@ -60,10 +85,14 @@ function checkWin() {
     ) {
       flaggedHiddens += 1
       if (flaggedHiddens === 10) {
-        alert('you win!')
+        endGameBanner.style.innerText = 'You win! Hit reset to play again'
+        endGameBanner.style.backgroundColor = 'lightgreen'
+        endGameBanner.style.visibility = 'visible'
       }
     }
   }
+  countFoundObjects()
+  updateFoundObjectsDisplay(foundObjectsCount)
 }
 
 function addCheckWinListener() {
@@ -312,7 +341,7 @@ function addFlipListener() {
         document.querySelector(
           squares[coordinateArrayOfSquares[i]].selector
         ).style.background = 'red'
-        alert('you lose!')
+        endGameBanner.style.visibility = 'visible'
       }
 
       if (squares[coordinateArrayOfSquares[i]].isGem === true) {
