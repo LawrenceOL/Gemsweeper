@@ -13,7 +13,7 @@ header {
   justify-content: space-evenly;  
   align-items: center;  
   flex-direction: row;
-  margin: 100px;  
+  margin: 100px 100px 0 10px;  
 }
 
 .left {
@@ -24,6 +24,10 @@ header {
 button {
   width: 50%;
   margin-top: 60px;
+}
+
+#watch-out {
+  color: red;
 }
 
 #end-game-banner {
@@ -64,9 +68,10 @@ nav {
 
 .nav-item {
   display: flex;
-  margin-right: 5px;
-  font-size: 10px;
+  padding-right: 50px;
+  font-size: 20px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 
