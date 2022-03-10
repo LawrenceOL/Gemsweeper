@@ -459,7 +459,11 @@ function flipAdjacentEmptySquares(x, y, num) {
   if (num !== -404 && squares[`${x},${y}`].isFlipped === true) {
     return
   } else {
-    num = squares[`${x},${y}`].squareValue
+    if (num === -404) {
+      num = 0
+    } else {
+      num = squares[`${x},${y}`].squareValue
+    }
     document.querySelector(
       squares[`${x},${y}`].selector
     ).style.backgroundColor = `gray`
