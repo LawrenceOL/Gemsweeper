@@ -49,43 +49,44 @@ function cheatMode() {
 }
 
 function countFoundObjects() {
-  let lavaCount = 0
-  let gemCount = 0
+  let flaggedLavaCount = 0
+  let flaggedGemCount = 0
+  let bonusGemCount = 0
   foundObjectsCount = ['lava', 'gem bonus']
   for (square in squares) {
     if (squares[square].isFlagged === true) {
       if (squares[square].isLava === true) {
-        lavaCount += 1
+        flaggedLavaCount += 1
       }
       if (squares[square].isGem === true) {
-        gemCount += 1
+        flaggedGemCount += 1
       }
     }
+    if (squares[square].isGem === true && squares[square].isFlipped === true) {
+      bonusGemCount += 1
+    }
   }
-  foundObjectsCount[0] = gemCount + lavaCount
-  foundObjectsCount[1] = gemCount * 100
+  foundObjectsCount[0] = flaggedGemCount + flaggedLavaCount
+  foundObjectsCount[1] = bonusGemCount * 100
   return foundObjectsCount
 }
 
 function updateFoundObjectsDisplay(foundObjectsCount) {
-  lavaDisplay.innerText = `Hidden Objects found: ${foundObjectsCount[0]}`
+  lavaDisplay.innerText = `Hidden Objects Found: ${foundObjectsCount[0]}`
   bonusDisplay.innerText = `Bonus Points Awarded: ${foundObjectsCount[1]}`
 }
 
 function checkWin() {
-  let winCheckCount = 0
   let flaggedHiddens = 0
   for (square in squares) {
-    if (squares[square].isFlipped === true) {
-      winCheckCount += 1
-    }
     if (
       squares[square].isHiddenObject === true &&
       squares[square].isFlagged === true
     ) {
       flaggedHiddens += 1
       if (flaggedHiddens === 10) {
-        endGameBanner.style.innerText = 'You win! Hit reset to play again'
+        freezeGame()
+        endGameBanner.innerText = 'You win! Hit reset to play again'
         endGameBanner.style.backgroundColor = 'lightgreen'
         endGameBanner.style.visibility = 'visible'
       }
@@ -265,6 +266,12 @@ function addSquareID() {
   })
 }
 
+function freezeGame() {
+  let gameBoard = document.querySelector('.game-container')
+  let frozenGameBoard = gameBoard.cloneNode(true)
+  gameBoard.parentNode.replaceChild(frozenGameBoard, gameBoard)
+}
+
 function addFlagListener() {
   gameSquares.forEach((gameSquare, i) => {
     gameSquare.addEventListener(
@@ -342,6 +349,9 @@ function addFlipListener() {
           squares[coordinateArrayOfSquares[i]].selector
         ).style.background = 'red'
         endGameBanner.style.visibility = 'visible'
+        endGameBanner.style.backgroundColor = 'red'
+        endGameBanner.innerText = 'You lose! Hit reset to play again'
+        freezeGame()
       }
 
       if (squares[coordinateArrayOfSquares[i]].isGem === true) {
@@ -349,7 +359,6 @@ function addFlipListener() {
           squares[coordinateArrayOfSquares[i]].selector
         ).style.background = 'lightblue'
         squares[coordinateArrayOfSquares[i]].isFlagged = true
-        alert('you found a gem!!')
       }
     })
   })
