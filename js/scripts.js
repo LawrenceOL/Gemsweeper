@@ -12,6 +12,7 @@ let totalLavas = 8
 let seededHiddenLava = 0
 let totalGems = 2
 let seededGems = 0
+let flipCount = 0
 
 let coordinateArrayOfSquares = []
 
@@ -21,10 +22,12 @@ const squares = {}
 generateCoordinatesArray()
 generateSquareObjects()
 addSquareID()
-seedHidden()
-seedGems()
-incrementValuesAroundHidden()
 addFlipListener()
+addFlagListener()
+
+// seedGems()
+// incrementValuesAroundHidden()
+// flipAdjacentEmptySquares(x, y, num)
 
 resetButton.addEventListener('click', reset)
 
@@ -37,12 +40,84 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
 }
 
-function seedHidden() {
+function cheatMode() {
+  for (square in squares) {
+    if (squares[square].isHiddenObject === true) {
+      document.querySelector(`${squares[square].selector}`).innerText = 'H'
+    } else
+      document.querySelector(`${squares[square].selector}`).innerText =
+        squares[square].squareValue
+  }
+}
+
+function checkWin() {
+  let winCheckCount = 0
+  let flaggedHiddens = 0
+  for (square in squares) {
+    if (squares[square].isFlipped === true) {
+      winCheckCount += 1
+    }
+    if (
+      squares[square].isHiddenObject === true &&
+      squares[square].isFlagged === true
+    ) {
+      flaggedHiddens += 1
+      if (flaggedHiddens === 10) {
+        console.log('you win!')
+      }
+    }
+  }
+
+  console.log('Flipped Squares: ' + winCheckCount)
+  console.log('Flagged Hidden Objects : ' + flaggedHiddens)
+}
+
+function seedHidden(x, y, num) {
   while (seededHiddenLava < totalLavas) {
     for (let i = 0; i < squareCount; i++) {
       if (
         seededHiddenLava < totalLavas &&
-        !squares[coordinateArrayOfSquares[i]].isLava
+        !squares[coordinateArrayOfSquares[i]].isLava &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x},${y}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x + 1},${y}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x},${y - 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x},${y + 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x + 1},${y + 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x + 1},${y - 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y + 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y - 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y - 1}`]
+        )
       ) {
         if (getRandomIntInclusive(1, 10) === 5) {
           squares[coordinateArrayOfSquares[i]].isLava = true
@@ -55,26 +130,68 @@ function seedHidden() {
       }
     }
   }
+
+  seedGems(x, y, num)
 }
 
-function seedGems() {
+function seedGems(x, y, num) {
   while (seededGems < totalGems) {
     for (let i = 0; i < squareCount; i++) {
       if (
         seededGems < totalGems &&
-        !squares[coordinateArrayOfSquares[i]].isHiddenObject
+        !squares[coordinateArrayOfSquares[i]].isHiddenObject &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x},${y}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x + 1},${y}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x},${y - 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x},${y + 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x + 1},${y + 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x + 1},${y - 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y + 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y - 1}`]
+        ) &&
+        !(
+          squares[coordinateArrayOfSquares[i]].coordinates ===
+          squares[`${x - 1},${y - 1}`]
+        )
       ) {
         if (getRandomIntInclusive(1, 10) === 5) {
           squares[coordinateArrayOfSquares[i]].isGem = true
           squares[coordinateArrayOfSquares[i]].isHiddenObject = true
-          // document.querySelector(
-          //   squares[coordinateArrayOfSquares[i]].selector
-          // ).style.background = 'lightblue'
           seededGems += 1
         }
       }
     }
   }
+
+  incrementValuesAroundHidden()
+  flipAdjacentEmptySquares(x, y, num)
 }
 
 //generates 9x9 2d array
@@ -111,9 +228,59 @@ function addSquareID() {
   })
 }
 
+function addFlagListener() {
+  gameSquares.forEach((gameSquare, i) => {
+    gameSquare.addEventListener(
+      'contextmenu',
+      function (ev) {
+        ev.preventDefault()
+        if (!squares[coordinateArrayOfSquares[i]].isFlagged) {
+          squares[coordinateArrayOfSquares[i]].isFlagged = true
+          document.querySelector(
+            squares[coordinateArrayOfSquares[i]].selector
+          ).innerText = 'F'
+          document.querySelector(
+            squares[coordinateArrayOfSquares[i]].selector
+          ).style.backgroundColor = '#d8a1e6'
+        } else {
+          squares[coordinateArrayOfSquares[i]].isFlagged = false
+          document.querySelector(
+            squares[coordinateArrayOfSquares[i]].selector
+          ).innerText = ''
+          document.querySelector(
+            squares[coordinateArrayOfSquares[i]].selector
+          ).style.backgroundColor = 'gray'
+        }
+        return false
+      },
+      false
+    )
+  })
+}
+
+// button.addEventListener('click', async () => {
+//   let breed = breedInput.value
+//   let response = await axios.get(
+//     `https://dog.ceo/api/breed/${breed}/images/random`
+//   )
+//   let dogPic = response.data.message
+//   imageDiv.innerHTML = `<img src=${dogPic}>`
+// })
+
 function addFlipListener() {
   gameSquares.forEach((gameSquare, i) => {
     gameSquare.addEventListener('click', () => {
+      if (flipCount === 0) {
+        squares[coordinateArrayOfSquares[i]].isFlipped = true
+        flipCount += 1
+        squares[coordinateArrayOfSquares[i]].squareValue = 0
+        flipCount = 1
+        let x = squares[coordinateArrayOfSquares[i]].coordinates[0]
+        let y = squares[coordinateArrayOfSquares[i]].coordinates[1]
+        let num = -404
+        seedHidden(x, y, num)
+      }
+
       if (
         !squares[coordinateArrayOfSquares[i]].isFlipped &&
         squares[coordinateArrayOfSquares[i]].isHiddenObject === false
@@ -122,7 +289,6 @@ function addFlipListener() {
           let x = squares[coordinateArrayOfSquares[i]].coordinates[0]
           let y = squares[coordinateArrayOfSquares[i]].coordinates[1]
           let num = 0
-
           flipAdjacentEmptySquares(x, y, num)
         }
 
@@ -131,6 +297,7 @@ function addFlipListener() {
           squares[coordinateArrayOfSquares[i]].selector
         ).style.background = 'gray'
         squares[coordinateArrayOfSquares[i]].isFlipped = true
+        flipCount
       }
 
       if (squares[coordinateArrayOfSquares[i]].squareValue > 0) {
@@ -150,6 +317,7 @@ function addFlipListener() {
         document.querySelector(
           squares[coordinateArrayOfSquares[i]].selector
         ).style.background = 'lightblue'
+        squares[coordinateArrayOfSquares[i]].isFlagged = true
         alert('you found a gem!!')
       }
     })
@@ -288,7 +456,7 @@ function flipAdjacentEmptySquares(x, y, num) {
   if (y > 8 || num >= 1) {
     return
   }
-  if (squares[`${x},${y}`].isFlipped === true) {
+  if (num !== -404 && squares[`${x},${y}`].isFlipped === true) {
     return
   } else {
     num = squares[`${x},${y}`].squareValue
@@ -296,14 +464,23 @@ function flipAdjacentEmptySquares(x, y, num) {
       squares[`${x},${y}`].selector
     ).style.backgroundColor = `gray`
 
-    if (num >= 1) {
+    if (num >= 1 || num === -404) {
       document.querySelector(squares[`${x},${y}`].selector).innerText = `${
         squares[`${x},${y}`].squareValue
       }`
     }
     squares[`${x},${y}`].isFlipped = true
-    flipAdjacentEmptySquares(x - 1, y, num)
+    flipCount += 1
+
+    flipAdjacentEmptySquares(x + 1, y + 1, num)
+    flipAdjacentEmptySquares(x - 1, y + 1, num)
+
     flipAdjacentEmptySquares(x + 1, y, num)
+    flipAdjacentEmptySquares(x - 1, y, num)
+
+    flipAdjacentEmptySquares(x, y + 1, num)
+    flipAdjacentEmptySquares(x, y - 1, num)
+
     flipAdjacentEmptySquares(x, y + 1, num)
     flipAdjacentEmptySquares(x, y - 1, num)
   }
