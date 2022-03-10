@@ -24,10 +24,7 @@ generateSquareObjects()
 addSquareID()
 addFlipListener()
 addFlagListener()
-
-// seedGems()
-// incrementValuesAroundHidden()
-// flipAdjacentEmptySquares(x, y, num)
+addCheckWinListener()
 
 resetButton.addEventListener('click', reset)
 
@@ -63,13 +60,28 @@ function checkWin() {
     ) {
       flaggedHiddens += 1
       if (flaggedHiddens === 10) {
-        console.log('you win!')
+        alert('you win!')
       }
     }
   }
+}
 
-  console.log('Flipped Squares: ' + winCheckCount)
-  console.log('Flagged Hidden Objects : ' + flaggedHiddens)
+function addCheckWinListener() {
+  gameSquares.forEach((gameSquare) => {
+    gameSquare.addEventListener('click', () => {
+      checkWin()
+    })
+
+    gameSquare.addEventListener(
+      'contextmenu',
+      function (ev) {
+        ev.preventDefault()
+        checkWin()
+        return false
+      },
+      false
+    )
+  })
 }
 
 function seedHidden(x, y, num) {
@@ -122,9 +134,6 @@ function seedHidden(x, y, num) {
         if (getRandomIntInclusive(1, 10) === 5) {
           squares[coordinateArrayOfSquares[i]].isLava = true
           squares[coordinateArrayOfSquares[i]].isHiddenObject = true
-          // document.querySelector(
-          //   squares[coordinateArrayOfSquares[i]].selector
-          // ).style.background = 'red'
           seededHiddenLava += 1
         }
       }
@@ -194,7 +203,6 @@ function seedGems(x, y, num) {
   flipAdjacentEmptySquares(x, y, num)
 }
 
-//generates 9x9 2d array
 function generateCoordinatesArray() {
   for (y = gridHeight - 1; y >= 0; y--) {
     for (let x = 0; x < gridWidth; x++) {
@@ -234,7 +242,10 @@ function addFlagListener() {
       'contextmenu',
       function (ev) {
         ev.preventDefault()
-        if (!squares[coordinateArrayOfSquares[i]].isFlagged) {
+        if (
+          !squares[coordinateArrayOfSquares[i]].isFlagged &&
+          !squares[coordinateArrayOfSquares[i]].isFlipped
+        ) {
           squares[coordinateArrayOfSquares[i]].isFlagged = true
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
@@ -242,14 +253,14 @@ function addFlagListener() {
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
           ).style.backgroundColor = '#d8a1e6'
-        } else {
+        } else if (squares[coordinateArrayOfSquares[i]].isFlagged) {
           squares[coordinateArrayOfSquares[i]].isFlagged = false
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
           ).innerText = ''
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
-          ).style.backgroundColor = 'gray'
+          ).style.backgroundColor = 'tan'
         }
         return false
       },
@@ -257,15 +268,6 @@ function addFlagListener() {
     )
   })
 }
-
-// button.addEventListener('click', async () => {
-//   let breed = breedInput.value
-//   let response = await axios.get(
-//     `https://dog.ceo/api/breed/${breed}/images/random`
-//   )
-//   let dogPic = response.data.message
-//   imageDiv.innerHTML = `<img src=${dogPic}>`
-// })
 
 function addFlipListener() {
   gameSquares.forEach((gameSquare, i) => {
@@ -326,7 +328,6 @@ function addFlipListener() {
 
 function incrementValuesAroundHidden() {
   for (i = 0; i < squareCount; i++) {
-    // left adjacent
     if (
       squares[coordinateArrayOfSquares[i - 1]] &&
       squares[coordinateArrayOfSquares[i]].coordinates[0] !== 0 &&
@@ -334,12 +335,8 @@ function incrementValuesAroundHidden() {
       !squares[coordinateArrayOfSquares[i - 1]].isHiddenObject
     ) {
       squares[coordinateArrayOfSquares[i - 1]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i - 1]].selector
-      // ).innerText = `${squares[coordinateArrayOfSquares[i - 1]].squareValue}`
     }
 
-    // //     //right adjacent
     if (
       squares[coordinateArrayOfSquares[i + 1]] &&
       squares[coordinateArrayOfSquares[i]].coordinates[0] !== 8 &&
@@ -347,12 +344,8 @@ function incrementValuesAroundHidden() {
       !squares[coordinateArrayOfSquares[i + 1]].isHiddenObject
     ) {
       squares[coordinateArrayOfSquares[i + 1]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i + 1]].selector
-      // ).innerText = `${squares[coordinateArrayOfSquares[i + 1]].squareValue}`
     }
 
-    // //Above - 1 aka 10 before
     if (
       squares[coordinateArrayOfSquares[i - gridWidth - 1]] &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
@@ -360,28 +353,16 @@ function incrementValuesAroundHidden() {
       squares[coordinateArrayOfSquares[i]].coordinates[0] !== 0
     ) {
       squares[coordinateArrayOfSquares[i - gridWidth - 1]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i - gridWidth - 1]].selector
-      // ).innerText = `${
-      //   squares[coordinateArrayOfSquares[i - gridWidth - 1]].squareValue
-      // }`
     }
 
-    // //Above aka 9 before
     if (
       squares[coordinateArrayOfSquares[i - gridWidth]] &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
       !squares[coordinateArrayOfSquares[i - gridWidth]].isHiddenObject
     ) {
       squares[coordinateArrayOfSquares[i - gridWidth]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i - gridWidth]].selector
-      // ).innerText = `${
-      //   squares[coordinateArrayOfSquares[i - gridWidth]].squareValue
-      // }`
     }
 
-    // //Above + 1 aka 8 before
     if (
       squares[coordinateArrayOfSquares[i - gridWidth + 1]] &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
@@ -389,14 +370,8 @@ function incrementValuesAroundHidden() {
       squares[coordinateArrayOfSquares[i]].coordinates[0] !== 8
     ) {
       squares[coordinateArrayOfSquares[i - gridWidth + 1]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i - gridWidth + 1]].selector
-      // ).innerText = `${
-      //   squares[coordinateArrayOfSquares[i - gridWidth + 1]].squareValue
-      // }`
     }
 
-    // //below - 1 aka 8 after
     if (
       squares[coordinateArrayOfSquares[i + gridWidth - 1]] &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
@@ -404,28 +379,16 @@ function incrementValuesAroundHidden() {
       squares[coordinateArrayOfSquares[i]].coordinates[0] !== 0
     ) {
       squares[coordinateArrayOfSquares[i + gridWidth - 1]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i + gridWidth - 1]].selector
-      // ).innerText = `${
-      //   squares[coordinateArrayOfSquares[i + gridWidth - 1]].squareValue
-      // }`
     }
 
-    // //below aka 9 after
     if (
       squares[coordinateArrayOfSquares[i + gridWidth]] &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
       !squares[coordinateArrayOfSquares[i + gridWidth]].isHiddenObject
     ) {
       squares[coordinateArrayOfSquares[i + gridWidth]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i + gridWidth]].selector
-      // ).innerText = `${
-      //   squares[coordinateArrayOfSquares[i + gridWidth]].squareValue
-      // }`
     }
 
-    // //below + 1 aka 10 after
     if (
       squares[coordinateArrayOfSquares[i + gridWidth + 1]] &&
       squares[coordinateArrayOfSquares[i]].isHiddenObject &&
@@ -433,17 +396,11 @@ function incrementValuesAroundHidden() {
       squares[coordinateArrayOfSquares[i]].coordinates[0] !== 8
     ) {
       squares[coordinateArrayOfSquares[i + gridWidth + 1]].squareValue += 1
-      // document.querySelector(
-      //   squares[coordinateArrayOfSquares[i + gridWidth + 1]].selector
-      // ).innerText = `${        squares[coordinateArrayOfSquares[i + gridWidth + 1]].squareValue
-      // }`
     }
   }
 }
 
 function flipAdjacentEmptySquares(x, y, num) {
-  console.log('x: ' + x + ' y: ' + y + ' num: ' + num)
-
   if (x < 0 || num >= 1) {
     return
   }
@@ -457,6 +414,10 @@ function flipAdjacentEmptySquares(x, y, num) {
     return
   }
   if (num !== -404 && squares[`${x},${y}`].isFlipped === true) {
+    return
+  }
+
+  if (squares[`${x},${y}`].isHiddenObject === true) {
     return
   } else {
     if (num === -404) {
