@@ -6,6 +6,7 @@
 
 ### [Twitter](https://twitter.com/Lawrence_OL) | [Github](https://github.com/LawrenceOL) | [LinkedIn](https://www.linkedin.com/in/lawrenceol/)
 
+### [Playable deployment on Surge](https://https://gem-sweeper.surge.sh)
 ---
 
 ### ***Description***

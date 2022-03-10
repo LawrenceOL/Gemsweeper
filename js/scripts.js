@@ -37,6 +37,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
 }
 
+//Run after first click. Displays number values of all squares
 function cheatMode() {
   for (square in squares) {
     if (squares[square].isHiddenObject === true) {
@@ -47,6 +48,7 @@ function cheatMode() {
   }
 }
 
+//Counts hidden objects that have been flagged
 function countFoundObjects() {
   let flaggedLavaCount = 0
   let flaggedGemCount = 0
@@ -70,11 +72,13 @@ function countFoundObjects() {
   return foundObjectsCount
 }
 
+//Updates scoreboard
 function updateFoundObjectsDisplay(foundObjectsCount) {
   lavaDisplay.innerText = `Hidden Objects Found: ${foundObjectsCount[0]}`
   bonusDisplay.innerText = `Bonus Points Awarded: ${foundObjectsCount[1]}`
 }
 
+//Checks for a win and calls a refresh of scoreboard
 function checkWin() {
   let flaggedHiddens = 0
   for (square in squares) {
@@ -95,6 +99,7 @@ function checkWin() {
   updateFoundObjectsDisplay(foundObjectsCount)
 }
 
+//Adds listener to enable all left or right clicks on squares to detect win
 function addCheckWinListener() {
   gameSquares.forEach((gameSquare) => {
     gameSquare.addEventListener('click', () => {
@@ -113,6 +118,7 @@ function addCheckWinListener() {
   })
 }
 
+//Adds lava game squares
 function seedHidden(x, y, num) {
   while (seededHiddenLava < totalLavas) {
     for (let i = 0; i < squareCount; i++) {
@@ -171,6 +177,7 @@ function seedHidden(x, y, num) {
   seedGems(x, y, num)
 }
 
+//adds gem game squares
 function seedGems(x, y, num) {
   while (seededGems < totalGems) {
     for (let i = 0; i < squareCount; i++) {
@@ -231,6 +238,7 @@ function seedGems(x, y, num) {
   flipAdjacentEmptySquares(x, y, num)
 }
 
+//Creates coordinates for grid
 function generateCoordinatesArray() {
   for (y = gridHeight - 1; y >= 0; y--) {
     for (let x = 0; x < gridWidth; x++) {
@@ -239,13 +247,13 @@ function generateCoordinatesArray() {
   }
 }
 
+//One stop shop for all things square
 function generateSquareObjects() {
   for (let i = 0; i < squareCount; i++) {
     let squareName = 'square' + i
     squares[coordinateArrayOfSquares[i]] = {
       name: squareName,
       coordinates: coordinateArrayOfSquares[i],
-      neighbors: 'tbd',
       isLava: false,
       isGem: false,
       isHiddenObject: false,
@@ -257,6 +265,7 @@ function generateSquareObjects() {
   }
 }
 
+//adds IDs via DOM
 function addSquareID() {
   gameSquares.forEach((gameSquare, index) => {
     let id = `square${index}`
@@ -264,12 +273,14 @@ function addSquareID() {
   })
 }
 
+//Stop the game without dealing with the event listeners
 function freezeGame() {
   let gameBoard = document.querySelector('.game-container')
   let frozenGameBoard = gameBoard.cloneNode(true)
   gameBoard.parentNode.replaceChild(frozenGameBoard, gameBoard)
 }
 
+//Suares listen for right click to toggle flag marker
 function addFlagListener() {
   gameSquares.forEach((gameSquare, i) => {
     gameSquare.addEventListener(
@@ -299,6 +310,7 @@ function addFlagListener() {
   })
 }
 
+//Squares listen for left click to show hidden contents
 function addFlipListener() {
   gameSquares.forEach((gameSquare, i) => {
     gameSquare.addEventListener('click', () => {
@@ -364,6 +376,7 @@ function addFlipListener() {
   })
 }
 
+//adds values for number boxes around hidden objects
 function incrementValuesAroundHidden() {
   for (i = 0; i < squareCount; i++) {
     if (
@@ -438,6 +451,7 @@ function incrementValuesAroundHidden() {
   }
 }
 
+//recursively reveals empty squares and border number squares
 function flipAdjacentEmptySquares(x, y, num) {
   if (x < 0 || num >= 1) {
     return
@@ -477,18 +491,14 @@ function flipAdjacentEmptySquares(x, y, num) {
 
     flipAdjacentEmptySquares(x + 1, y + 1, num)
     flipAdjacentEmptySquares(x - 1, y + 1, num)
-
     flipAdjacentEmptySquares(x + 1, y, num)
     flipAdjacentEmptySquares(x - 1, y, num)
-
     flipAdjacentEmptySquares(x, y + 1, num)
     flipAdjacentEmptySquares(x, y - 1, num)
-
     flipAdjacentEmptySquares(x, y + 1, num)
     flipAdjacentEmptySquares(x, y - 1, num)
   }
 }
-
 function reset() {
   window.location.reload()
 }
