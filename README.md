@@ -1,6 +1,6 @@
 # Gemsweeper Game
 
-## Date: 3/7/22
+## Date: 3/11/22
 
 ### By: Lawrence O'Regan-Lloyd
 
@@ -10,8 +10,8 @@
 
 ### ***Description***
 
-### A mining themed twist on the class game Minesweeper
-#### Collect all the gems and mark all the lava flows to win
+### A mining themed twist on the classic game Minesweeper
+#### Click boxes to explore. Numbers indicate the adjacent hidden objects. Right click suspected objects to flag them for removal. Flag all the hidden objects to win! Bonus points awarded for each gem object discovered
 
 ---
 
@@ -21,27 +21,24 @@
 - CSS
 - JavaScript
 
-### ***Conceptual Screenshots***
+### ***Gameplay Images***
 
-#### Gemsweeper is a mash-up of classic Minesweeper style gameplay:
+#### Can you avoid the lava?
 
-![Image](https://i.imgur.com/7tD0yuC.jpeg)
-
-#### ...mixed with the thrill of searching for rare gems near lava, such as in mining games like this:
-
-![Image](https://i.ytimg.com/vi/TGyOqZAsKeo/maxresdefault.jpg)
+![Image](./assets/Gemsweeper.jpg)
 
 ### ***Future Updates***
 
-- [x] Get Approval from instructors
-- [ ] Assemble HTML
-- [ ] Code up some JavaScript
-- [ ] Add style with CSS
-- [ ] Deploy to Surge 
+- [ ] Add mobile interaction
+- [ ] Integrate sounds and animations
+- [ ] Include multiple difficulty settings
+- [ ] Enable replay on the same board layout
 
+### ***Want to Install Locally?***
+#### To play locally, simply download all the files and open index.html in your browser
 
 ### ***Credits***
-#### Inspired by Jerimac Ratliff's *Cube* game and the Windows 3.1 classic Microsoft Minesweeper
-#### Elements of gameplay inspired by Mojang's [Minecraft](https://www.minecraft.net/) 
-#### Thanks to the members of the 2-22 GA SEI Cohort. Glad to be sharing the GA immersive experience with you
+#### Similar gameplay has been seen in games such as Jerimac Ratliff's *Cube* and the Windows 3.1 classic *Microsoft Minesweeper*
+#### Lava and gem elements inspired by Mojang's [Minecraft](https://www.minecraft.net/) 
+#### Special thanks to the members of the 2-22 GA SEI Cohort
 

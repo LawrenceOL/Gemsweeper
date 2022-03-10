@@ -85,7 +85,7 @@ function checkWin() {
       flaggedHiddens += 1
       if (flaggedHiddens === 10) {
         freezeGame()
-        endGameBanner.innerText = 'You win! Hit reset to play again'
+        endGameBanner.innerText = 'You win! Reset to play again'
         endGameBanner.style.backgroundColor = 'lightgreen'
         endGameBanner.style.visibility = 'visible'
       }
@@ -341,10 +341,13 @@ function addFlipListener() {
       if (squares[coordinateArrayOfSquares[i]].isLava === true) {
         document.querySelector(
           squares[coordinateArrayOfSquares[i]].selector
-        ).style.background = 'red'
+        ).style.background = 'orange'
+        document.querySelector(
+          squares[coordinateArrayOfSquares[i]].selector
+        ).innerText = '🌋'
         endGameBanner.style.visibility = 'visible'
         endGameBanner.style.backgroundColor = 'red'
-        endGameBanner.innerText = 'You lose! Hit reset to play again'
+        endGameBanner.innerText = 'You lose! Reset to play again'
         freezeGame()
       }
 
@@ -352,6 +355,9 @@ function addFlipListener() {
         document.querySelector(
           squares[coordinateArrayOfSquares[i]].selector
         ).style.background = 'lightblue'
+        document.querySelector(
+          squares[coordinateArrayOfSquares[i]].selector
+        ).innerText = '💎'
         squares[coordinateArrayOfSquares[i]].isFlagged = true
       }
     })
