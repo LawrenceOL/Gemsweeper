@@ -55,8 +55,9 @@ button {
 .game-square {
   width: 20px;
   height: 20px;
-  background-color: burlywood;
+  background-color: #964B00;
   border-style: solid;
+  text-align: center;
 }
 
 nav {

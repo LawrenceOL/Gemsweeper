@@ -14,7 +14,6 @@ let seededHiddenLava = 0
 let totalGems = 2
 let seededGems = 0
 let flipCount = 0
-
 let coordinateArrayOfSquares = []
 
 const idToCoords = {}
@@ -169,7 +168,6 @@ function seedHidden(x, y, num) {
       }
     }
   }
-
   seedGems(x, y, num)
 }
 
@@ -283,20 +281,16 @@ function addFlagListener() {
           !squares[coordinateArrayOfSquares[i]].isFlipped
         ) {
           squares[coordinateArrayOfSquares[i]].isFlagged = true
-          document.querySelector(
-            squares[coordinateArrayOfSquares[i]].selector
-          ).innerText = 'F'
+
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
           ).style.backgroundColor = '#d8a1e6'
         } else if (squares[coordinateArrayOfSquares[i]].isFlagged) {
           squares[coordinateArrayOfSquares[i]].isFlagged = false
+
           document.querySelector(
             squares[coordinateArrayOfSquares[i]].selector
-          ).innerText = ''
-          document.querySelector(
-            squares[coordinateArrayOfSquares[i]].selector
-          ).style.backgroundColor = 'tan'
+          ).style.backgroundColor = '#964B00'
         }
         return false
       },
