@@ -33,7 +33,7 @@ header {
 .game-square {
   width: 20px;
   height: 20px;
-  background-color: gray;
+  background-color: burlywood;
   border-style: solid;
 }
 
