@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gemsweeper</title>
   <link rel="stylesheet" href="./css/styles.css" />   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
   <script defer src="./js/scripts.js" charset="utf-8"></script>           
 </head>
 
@@ -14,7 +17,8 @@
     <a class="nav-item" href="./">Gemsweeper</a>
     <a class="nav-item" href="./about.html">About</a>
 </nav>
-<header><h1>Gemsweeper</h1> </header>
+<div class="bar"></div>
+<header><div id="gem"></div><h1>Gemsweeper</h1><div id="gem2"></div></header>
 
 <div class="container">
   <div class="left">
@@ -111,27 +115,22 @@
 </div>
 
 <div class="instructions">
-  <h1>Instructions</h1>
+  <h2>Instructions</h2>
   <p>
     You are a gem miner deep in a cavern. 
     Inside there is dirt.
     Under the dirt there may be lava 🌋 or gems 💎 <br>
-    <ul>
-       <li>Left click to explore</li>
-      <li>Right click to mark with your purple flag</li>
-      <li>Number indicate how many adjacent squares are holding lava or gems</li>
-  </ul>
-
-    <h2>Objective: Mark all hidden objects</h2>
-    <h3>Bonus Objective: collect all the gems </h3>
-    
-    <h1> <span id="watch-out">Watch out! </span>Left clicking lava ends the game</h1>
-
-
-    
-
+      <ul>
+      <li>Left click to explore</li>
+        <li>Right click to mark for extraction with your purple marking</li>
+        <li>Numbers indicate how many adjacent squares are holding lava or gems</li>
+    </ul>
+    <h3>Objective: Mark all hidden objects 
+      <br>
+      <br>
+      Bonus Objective: Collect all the gems </h3>    
+    <h5> <span id="watch-out">Watch out! </span>Left clicking lava ends the game</h5>
   </p>
 </div>
-
 </body>
 </html>
