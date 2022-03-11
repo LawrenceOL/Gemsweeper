@@ -6,7 +6,7 @@
 
 ### [Twitter](https://twitter.com/Lawrence_OL) | [Github](https://github.com/LawrenceOL) | [LinkedIn](https://www.linkedin.com/in/lawrenceol/)
 
-### [Playable deployment on Surge](https://https://gem-sweeper.surge.sh)
+### [Playable deployment on Surge](https://gem-sweeper.surge.sh)
 ### [Trello Planning Board](https://trello.com/b/41J9d4Sg/gemsweeper)
 ---
 
