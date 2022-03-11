@@ -27,7 +27,7 @@
 
 #### Can you avoid the lava?
 
-![Image](./assets/Gemsweeper.jpg)
+![Image](./assets/Gemsweeper2.png)
 
 ### ***Future Updates***
 
