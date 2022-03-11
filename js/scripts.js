@@ -40,8 +40,10 @@ function getRandomIntInclusive(min, max) {
 //Run after first click. Displays number values of all squares
 function cheatMode() {
   for (square in squares) {
-    if (squares[square].isHiddenObject === true) {
-      document.querySelector(`${squares[square].selector}`).innerText = 'H'
+    if (squares[square].isLava === true) {
+      document.querySelector(`${squares[square].selector}`).innerText = 'L'
+    } else if (squares[square].isGem === true) {
+      document.querySelector(`${squares[square].selector}`).innerText = 'G'
     } else
       document.querySelector(`${squares[square].selector}`).innerText =
         squares[square].squareValue
