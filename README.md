@@ -1,4 +1,4 @@
-# Gemsweeper Game
+# Gemsweeper: A New Twist on Minesweeper
 
 ## Date: 3/11/22
 
