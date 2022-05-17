@@ -17,17 +17,17 @@
   <script>
     const isMobile = ('ontouchstart' in document.documentElement && navigator.userAgent.match(/Mobi/));
     let shown = false
-    while (!shown) {
-      if (isMobile) {
-        $(document).ready(function () {
-          $("#myModal").modal({
-            "show": true,
-            "backdrop": "static"
-          });
+
+    if (isMobile) {
+      $(document).ready(function () {
+        $("#myModal").modal({
+          "show": true,
+          "backdrop": "static"
         });
-        shown = true
-      }
+      });
+
     }
+
   </script>
 </head>
 
@@ -36,7 +36,7 @@
     <a class="nav-item" href="./">Gemsweeper</a>
     <a class="nav-item" href="./about.html">About</a>
   </nav>
-  <div id="myModal" class="modal fade">
+  <div id="mobile-modal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -68,7 +68,7 @@
     <div class="left">
       <div id="lava-display">Hidden Objects Found: 0</div>
       <div id="bonus-display">Bonus Points Awarded: 0</div>
-      <button>Reset</button>
+      <button class="btn btn-danger">Reset</button>
       <div id="end-game-banner"></div>
     </div>
     <div class="right">
