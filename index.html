@@ -1,136 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gemsweeper</title>
-  <link rel="stylesheet" href="./css/styles.css" />   
+  <link rel="stylesheet" href="./css/styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
-  <script defer src="./js/scripts.js" charset="utf-8"></script>           
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script defer src="./js/scripts.js" charset="utf-8"></script>
+  <script>
+    const isMobile = ('ontouchstart' in document.documentElement && navigator.userAgent.match(/Mobi/));
+    let shown = false
+    while (!shown) {
+      if (isMobile) {
+        $(document).ready(function () {
+          $("#myModal").modal({
+            "show": true,
+            "backdrop": "static"
+          });
+        });
+        shown = true
+      }
+    }
+  </script>
 </head>
 
 <body>
   <nav>
     <a class="nav-item" href="./">Gemsweeper</a>
     <a class="nav-item" href="./about.html">About</a>
-</nav>
-<div class="bar"></div>
-<header><div id="gem"></div><h1>Gemsweeper</h1><div id="gem2"></div></header>
+  </nav>
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sorry!</h5>
 
-<div class="container">
-  <div class="left">
-    <div id="lava-display">Hidden Objects Found: 0</div>
-    <div id="bonus-display">Bonus Points Awarded: 0</div>    
-    <button>Reset</button>
-    <div id="end-game-banner"></div>
-  </div>
-  <div class="right">
-    <div class="game-container">
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
-      <div class="game-square"></div>
+        </div>
+        <div class="modal-body">
+          <p>Whoops! Looks like you are on a phone or tablet. For now, Gemsweeper only works on a computer with a mouse.
+          </p>
+
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="instructions">
-  <h2>Instructions</h2>
-  <p>
-    You are a gem miner deep in a cavern. 
-    Inside there is dirt.
-    Under the dirt there may be lava 🌋 or gems 💎 <br>
-      <ul>
+  <header>
+    <h1>
+      <div id="gem">
+
+        <h1>Gemsweeper</h1>
+      </div>
+
+
+    </h1>
+
+  </header>
+
+  <div class="container">
+    <div class="left">
+      <div id="lava-display">Hidden Objects Found: 0</div>
+      <div id="bonus-display">Bonus Points Awarded: 0</div>
+      <button>Reset</button>
+      <div id="end-game-banner"></div>
+    </div>
+    <div class="right">
+      <div class="game-container">
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+        <div class="game-square"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <h2>Instructions</h2>
+    <p>
+      You are a gem miner deep in a cavern.
+      Inside there is dirt.
+      Under the dirt there may be lava 🌋 or gems 💎 <br>
+    <ul>
       <li>Left click to explore</li>
-        <li>Right click to mark for extraction with your purple marking</li>
-        <li>Numbers indicate how many adjacent squares are holding lava or gems</li>
+      <li>Right click to mark for extraction with your purple marking</li>
+      <li>Numbers indicate how many adjacent squares are holding lava or gems</li>
     </ul>
-    <h3>Objective: Mark all hidden objects 
+    <h3>Objective: Mark all hidden objects
       <br>
       <br>
-      Bonus Objective: Collect all the gems </h3>    
+      Bonus Objective: Collect all the gems
+    </h3>
     <h5> <span id="watch-out">Watch out! </span>Left clicking lava ends the game</h5>
-  </p>
-</div>
+    </p>
+  </div>
 </body>
+
 </html>
