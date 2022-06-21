@@ -8,6 +8,7 @@
 
 
 ### [Trello Planning Board](https://trello.com/b/41J9d4Sg/gemsweeper)
+### [Deployed Game](https://www.lawrenceol.dev/tictactoe.html)
 ---
 
 ### ***Description***
